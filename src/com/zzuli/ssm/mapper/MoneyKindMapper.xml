@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzuli.ssm.mapper.MoneyKindMapper" >
+  <resultMap id="BaseResultMap" type="com.zzuli.ssm.po.MoneyKind" >
+    <id column="kind_id" property="kindId" jdbcType="VARCHAR" />
+    <result column="kind_code" property="kindCode" jdbcType="VARCHAR" />
+    <result column="kind_name" property="kindName" jdbcType="VARCHAR" />
+    <result column="kind_item" property="kindItem" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    kind_id, kind_code, kind_name, kind_item
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zzuli.ssm.po.MoneyKindExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from money_kind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_kind
+    where kind_id = #{kindId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from money_kind
+    where kind_id = #{kindId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzuli.ssm.po.MoneyKindExample" >
+    delete from money_kind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzuli.ssm.po.MoneyKind" >
+    insert into money_kind (kind_id, kind_code, kind_name, 
+      kind_item)
+    values (#{kindId,jdbcType=VARCHAR}, #{kindCode,jdbcType=VARCHAR}, #{kindName,jdbcType=VARCHAR}, 
+      #{kindItem,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzuli.ssm.po.MoneyKind" >
+    insert into money_kind
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="kindId != null" >
+        kind_id,
+      </if>
+      <if test="kindCode != null" >
+        kind_code,
+      </if>
+      <if test="kindName != null" >
+        kind_name,
+      </if>
+      <if test="kindItem != null" >
+        kind_item,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="kindId != null" >
+        #{kindId,jdbcType=VARCHAR},
+      </if>
+      <if test="kindCode != null" >
+        #{kindCode,jdbcType=VARCHAR},
+      </if>
+      <if test="kindName != null" >
+        #{kindName,jdbcType=VARCHAR},
+      </if>
+      <if test="kindItem != null" >
+        #{kindItem,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzuli.ssm.po.MoneyKindExample" resultType="java.lang.Integer" >
+    select count(*) from money_kind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update money_kind
+    <set >
+      <if test="record.kindId != null" >
+        kind_id = #{record.kindId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kindCode != null" >
+        kind_code = #{record.kindCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kindName != null" >
+        kind_name = #{record.kindName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kindItem != null" >
+        kind_item = #{record.kindItem,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update money_kind
+    set kind_id = #{record.kindId,jdbcType=VARCHAR},
+      kind_code = #{record.kindCode,jdbcType=VARCHAR},
+      kind_name = #{record.kindName,jdbcType=VARCHAR},
+      kind_item = #{record.kindItem,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzuli.ssm.po.MoneyKind" >
+    update money_kind
+    <set >
+      <if test="kindCode != null" >
+        kind_code = #{kindCode,jdbcType=VARCHAR},
+      </if>
+      <if test="kindName != null" >
+        kind_name = #{kindName,jdbcType=VARCHAR},
+      </if>
+      <if test="kindItem != null" >
+        kind_item = #{kindItem,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where kind_id = #{kindId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzuli.ssm.po.MoneyKind" >
+    update money_kind
+    set kind_code = #{kindCode,jdbcType=VARCHAR},
+      kind_name = #{kindName,jdbcType=VARCHAR},
+      kind_item = #{kindItem,jdbcType=VARCHAR}
+    where kind_id = #{kindId,jdbcType=VARCHAR}
+  </update>
+</mapper>
